@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main]
+  pull_request:
+    branches: [ main]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            #Set up Python & django
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: '3.13'
+            
+            - name: Install Dependances
+              run : pip install django
+
+            - name: Run Django Migrations
+              run : python manage.py migrate
+
+            #Set up Node.js & Playwright
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+
+            - name: Install Node Depedancies
+              run: npm ci
+
+            - name: Install Playwright browsers
+              run: npx playwright install --with-deps
+            
+            # Run tests
+            - name: Start Django Server
+              run: python manage.py runserver &
+            
+            - name: Run Playwright tests
+              run: npx playwright test
+
