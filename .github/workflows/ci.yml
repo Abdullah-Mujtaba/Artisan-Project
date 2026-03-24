@@ -39,10 +39,15 @@ jobs:
             
             # Run tests
             - name: Start Django Server
-              run: python manage.py runserver &
-            
+              run: python manage.py runserver 127.0.0.1:8000 &
+
             - name: Wait for server to start
-              run: timeout 30 bash -c "until curl -s http://localhost:8000; do sleep 1; done"
+              run: |
+                for i in $(seq 1 30); do
+                  curl -s -o /dev/null http://127.0.0.1:8000/ && break
+                  echo "Waiting for server... attempt $i"
+                  sleep 2
+                done
 
             - name: Run Playwright tests
               run: npx playwright test
