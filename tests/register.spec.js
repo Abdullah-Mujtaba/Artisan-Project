@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 
 
 test('registner new user', async ({page}) => {
-    await page.goto('http://localhost:8000/');
+    await page.goto('http://127.0.0.1:8000/');
     await page.getByRole('link', { name: 'Register' }).click();
     await page.getByRole('textbox', { name: 'First Name' }).click();
     await page.getByRole('textbox', { name: 'First Name' }).fill('John');

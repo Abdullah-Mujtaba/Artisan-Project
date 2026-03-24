@@ -50,5 +50,5 @@ jobs:
                 done
 
             - name: Run Playwright tests
-              run: npx playwright test
+              run: npx playwright test --workers=4
 
