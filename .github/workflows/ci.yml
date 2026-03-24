@@ -41,6 +41,9 @@ jobs:
             - name: Start Django Server
               run: python manage.py runserver &
             
+            - name: Wait for server to start
+              run: timeout 30 bash -c "until curl -s http://localhost:8000; do sleep 1; done"
+
             - name: Run Playwright tests
               run: npx playwright test
 
