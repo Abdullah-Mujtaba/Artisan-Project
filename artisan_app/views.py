@@ -1,7 +1,7 @@
 import django
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 # Create your views here.
 
@@ -48,3 +48,7 @@ def login(request):
             return render(request, '../templates/login.html', {'error_message': error_message})
 
     return render(request, '../templates/login.html')
+
+def logout(request):
+    auth_logout(request)
+    return redirect('home')
