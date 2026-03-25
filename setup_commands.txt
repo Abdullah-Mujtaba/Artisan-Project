@@ -1,0 +1,16 @@
+Run these commands in order from the project root (H:\Artisan-Project):
+
+1. Install Python dependencies
+   pip install -r requirements.txt
+
+2. Install Node dependencies
+   npm install
+
+3. Install Playwright browsers
+   npx playwright install
+
+4. Run database migrations
+   python manage.py migrate
+
+5. Start the development server
+   python manage.py runserver

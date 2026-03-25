@@ -20,7 +20,7 @@ jobs:
                 python-version: '3.13'
             
             - name: Install Dependances
-              run : pip install django
+              run : pip install -r requirements.txt
 
             - name: Run Django Migrations
               run : python manage.py migrate

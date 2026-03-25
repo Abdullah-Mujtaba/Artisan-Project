@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artisan | Join the Craft</title>
+    <title>Artisan | Sign In</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
@@ -31,7 +31,7 @@
         }
 
         /* ── Left Panel ── */
-        .register-left {
+        .login-left {
             flex: 1;
             background: var(--charcoal);
             color: var(--cream);
@@ -44,7 +44,7 @@
             overflow: hidden;
         }
 
-        .register-left::before {
+        .login-left::before {
             content: '';
             position: absolute;
             inset: 0;
@@ -55,7 +55,7 @@
             pointer-events: none;
         }
 
-        .register-left .texture {
+        .login-left .texture {
             position: absolute;
             inset: 0;
             opacity: 0.04;
@@ -140,7 +140,7 @@
         }
 
         /* ── Right Panel (Form) ── */
-        .register-right {
+        .login-right {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -192,14 +192,8 @@
         }
 
         /* ── Form Fields ── */
-        .form-row {
-            display: flex;
-            gap: 1rem;
-        }
-
         .form-group {
             margin-bottom: 1.5rem;
-            flex: 1;
         }
 
         .form-group label {
@@ -235,12 +229,18 @@
             box-shadow: 0 0 0 3px rgba(198, 122, 75, 0.1);
         }
 
-        /* ── Checkbox ── */
+        /* ── Remember / Forgot Row ── */
+        .form-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
         .form-checkbox {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 0.7rem;
-            margin-bottom: 2rem;
         }
 
         .form-checkbox input[type="checkbox"] {
@@ -253,7 +253,6 @@
             background: var(--soft-white);
             cursor: pointer;
             position: relative;
-            top: 1px;
             transition: border-color 0.3s ease, background 0.3s ease;
         }
 
@@ -275,21 +274,35 @@
         .form-checkbox label {
             font-size: 0.85rem;
             color: #888;
-            line-height: 1.5;
             cursor: pointer;
         }
 
-        .form-checkbox label a {
-            color: var(--terracotta);
+        .forgot-link {
+            font-size: 0.82rem;
+            color: #aaa;
             text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
 
-        .form-checkbox label a:hover {
-            text-decoration: underline;
+        .forgot-link:hover {
+            color: var(--terracotta);
+        }
+
+        /* ── Error Message ── */
+        .error-message {
+            background: rgba(198, 122, 75, 0.1);
+            border: 1px solid rgba(198, 122, 75, 0.3);
+            border-radius: 2px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--terracotta);
+            letter-spacing: 0.5px;
         }
 
         /* ── Submit Button ── */
-        .register-btn {
+        .login-btn {
             display: block;
             width: 100%;
             padding: 1rem;
@@ -302,12 +315,10 @@
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 2px;
-            position: relative;
-            overflow: hidden;
             transition: background 0.4s ease;
         }
 
-        .register-btn:hover {
+        .login-btn:hover {
             background: var(--terracotta);
         }
 
@@ -335,7 +346,7 @@
         }
 
         /* ── Social Buttons ── */
-        .social-register {
+        .social-login {
             display: flex;
             gap: 1rem;
         }
@@ -397,7 +408,7 @@
                 flex-direction: column;
             }
 
-            .register-left {
+            .login-left {
                 padding: 3rem 2rem;
                 min-height: auto;
             }
@@ -410,13 +421,8 @@
                 display: none;
             }
 
-            .register-right {
+            .login-right {
                 padding: 3rem 2rem;
-            }
-
-            .form-row {
-                flex-direction: column;
-                gap: 0;
             }
         }
     </style>
@@ -424,44 +430,37 @@
 <body>
 
     <!-- Left Panel -->
-    <div class="register-left">
+    <div class="login-left">
         <div class="texture"></div>
         <div class="left-content">
             <a href="{% url 'home' %}" class="logo">ARTI<span>S</span>AN</a>
-            <blockquote>"Every maker was first a dreamer."</blockquote>
-            <cite>&mdash; Ralph Waldo Emerson</cite>
+            <blockquote>"The expert in anything was once a beginner."</blockquote>
+            <cite>&mdash; Helen Hayes</cite>
             <div class="left-divider"></div>
             <ul class="left-features">
-                <li>Access exclusive artisan collections</li>
-                <li>Connect with master craftspeople</li>
-                <li>Join workshops and live events</li>
-                <li>Track your curated orders</li>
+                <li>Curated collections await your return</li>
+                <li>Pick up where you left off</li>
+                <li>Your saved pieces are still here</li>
+                <li>Exclusive member events &amp; offers</li>
             </ul>
         </div>
     </div>
 
     <!-- Right Panel (Form) -->
-    <div class="register-right">
+    <div class="login-right">
         <div class="form-container">
             <div class="form-header">
-                <p class="section-label">Begin Your Journey</p>
-                <h1>Create Account</h1>
-                <p>Already part of the guild? <a href="{% url 'login' %}">Log in</a></p>
+                <p class="section-label">Welcome Back</p>
+                <h1>Sign In</h1>
+                <p>New to the guild? <a href="{% url 'register' %}">Create an account</a></p>
             </div>
 
-            <form method="POST" action="{% url 'register' %}">
-                {% csrf_token %}
+            {% if error_message %}
+                <div class="error-message">{{ error_message }}</div>
+            {% endif %}
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="first_name" placeholder="John" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" placeholder="Doe" required>
-                    </div>
-                </div>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
 
                 <div class="form-group">
                     <label for="email">Email Address</label>
@@ -470,27 +469,25 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="At least 8 characters" required minlength="8">
+                    <input type="password" id="password" name="password" placeholder="Your password" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="password_confirm">Confirm Password</label>
-                    <input type="password" id="password_confirm" name="password_confirm" placeholder="Repeat your password" required minlength="8">
+                <div class="form-footer-row">
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-link">Forgot password?</a>
                 </div>
 
-                <div class="form-checkbox">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">I agree to the <a href="#">Terms of Craft</a> and <a href="#">Privacy Policy</a></label>
-                </div>
-
-                <button type="submit" class="register-btn">Join the Guild</button>
+                <button type="submit" class="login-btn">Enter the Guild</button>
             </form>
 
             <div class="or-divider">
                 <span>or</span>
             </div>
 
-            <div class="social-register">
+            <div class="social-login">
                 <button class="social-btn">Google</button>
                 <button class="social-btn">Apple</button>
             </div>
