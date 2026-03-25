@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan | {{ listing.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f5f0e8;
+            --charcoal: #2c2c2c;
+            --warm-brown: #8b6914;
+            --terracotta: #c67a4b;
+            --sage: #7a8b6f;
+            --gold: #c9a84c;
+            --soft-white: #faf8f4;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+        }
+
+        /* ── Navigation ── */
+        .detail-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 3rem;
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+
+        .detail-nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cream);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .detail-nav .logo span {
+            color: var(--terracotta);
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--cream);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--terracotta);
+        }
+
+        /* ── Main Content ── */
+        .detail-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--terracotta);
+        }
+
+        .back-link::before {
+            content: '\2190  ';
+        }
+
+        .listing-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: block;
+            margin-bottom: 2.5rem;
+        }
+
+        .listing-info h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+        }
+
+        .listing-seller {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 1.5rem;
+        }
+
+        .listing-price-tag {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+        }
+
+        .listing-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--terracotta);
+            margin-bottom: 2rem;
+        }
+
+        .listing-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            font-weight: 300;
+            max-width: 700px;
+        }
+
+        .listing-date {
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        /* ── Animation ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .detail-nav {
+                padding: 1.2rem 1.5rem;
+            }
+
+            .detail-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .listing-info h1 {
+                font-size: 1.6rem;
+            }
+
+            .listing-image {
+                max-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="detail-nav">
+        <a href="{% url 'home' %}" class="logo">ARTI<span>S</span>AN</a>
+        <a href="{% url 'home' %}" class="nav-link">Back to Home</a>
+    </nav>
+
+    <!-- Content -->
+    <div class="detail-content">
+        <a href="{% url 'home' %}" class="back-link">Browse Collection</a>
+
+        {% if listing.image %}
+        <img src="{{ listing.image.url }}" alt="{{ listing.title }}" class="listing-image">
+        {% endif %}
+
+        <div class="listing-info">
+            <h1>{{ listing.title }}</h1>
+            <p class="listing-seller">By {{ listing.seller.get_full_name|default:listing.seller.username }}</p>
+
+            {% if listing.price %}
+            <p class="listing-price-tag">${{ listing.price }}</p>
+            {% endif %}
+
+            <div class="listing-divider"></div>
+            <p class="listing-description">{{ listing.description }}</p>
+            <p class="listing-date">Listed on {{ listing.created_at|date:"F j, Y" }}</p>
+        </div>
+    </div>
+
+</body>
+</html>

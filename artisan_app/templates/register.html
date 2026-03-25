@@ -379,6 +379,75 @@
             content: '\2190  ';
         }
 
+        /* ── Role Selector ── */
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .role-option {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .role-option input[type="radio"] {
+            display: none;
+        }
+
+        .role-card {
+            padding: 1.2rem 1rem;
+            border: 1.5px solid #ddd5c8;
+            border-radius: 2px;
+            text-align: center;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            background: var(--soft-white);
+        }
+
+        .role-card .role-icon {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .role-card strong {
+            display: block;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            color: var(--charcoal);
+        }
+
+        .role-card p {
+            font-size: 0.75rem;
+            color: #aaa;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .role-option input[type="radio"]:checked + .role-card {
+            border-color: var(--terracotta);
+            background: rgba(198, 122, 75, 0.06);
+        }
+
+        .role-option input[type="radio"]:checked + .role-card .role-icon {
+            color: var(--terracotta);
+        }
+
+        /* ── Error Message ── */
+        .error-message {
+            background: rgba(198, 75, 75, 0.08);
+            border: 1px solid rgba(198, 75, 75, 0.3);
+            color: #c44b4b;
+            padding: 0.8rem 1rem;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
         /* ── Animation ── */
         @keyframes fadeUp {
             from {
@@ -451,6 +520,29 @@
 
             <form method="POST" action="{% url 'register' %}">
                 {% csrf_token %}
+
+                {% if error_message %}
+                <div class="error-message">{{ error_message }}</div>
+                {% endif %}
+
+                <div class="role-selector">
+                    <label class="role-option">
+                        <input type="radio" name="role" value="customer" checked>
+                        <div class="role-card">
+                            <span class="role-icon">&#9672;</span>
+                            <strong>Customer</strong>
+                            <p>Browse and collect artisan pieces</p>
+                        </div>
+                    </label>
+                    <label class="role-option">
+                        <input type="radio" name="role" value="seller">
+                        <div class="role-card">
+                            <span class="role-icon">&#10022;</span>
+                            <strong>Artisan Seller</strong>
+                            <p>Showcase and sell your craft</p>
+                        </div>
+                    </label>
+                </div>
 
                 <div class="form-row">
                     <div class="form-group">

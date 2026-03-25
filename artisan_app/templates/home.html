@@ -576,6 +576,9 @@
         </ul>
         <div class="nav-auth">
             {% if user.is_authenticated %}
+                {% if user.profile.role == 'seller' %}
+                    <a href="{% url 'seller_dashboard' %}" class="auth-link">Dashboard</a>
+                {% endif %}
                 <a href="{% url 'logout' %}" class="auth-btn">Log Out</a>
             {% else %}
                 <a href="{% url 'login' %}" class="auth-link">Log In</a>
